@@ -1,24 +1,22 @@
 # Mall Navigation System
 
-A Django-based Mall Navigation System that helps users search stores, view store details, filter by category, and find the shortest route inside a mall using BFS (Breadth First Search).
+A Django-based Smart Mall Navigation System that helps users find stores, view floor-wise layouts, and navigate to destinations using the shortest path algorithm.
 
 ## Features
-- Store Search
-- Category Filtering
-- Store Details Page
-- Mall Map
-- BFS-Based Navigation
-- Django Admin Panel
+
+* Store Search
+* Category Filtering
+* Store Details Page
+* Mall Map
+* BFS-Based Navigation
+* Turn-by-Turn Directions
+* Django Admin Panel
 
 ## Tech Stack
-- Python
-- Django
-- SQLite
-- Bootstrap
-- HTML/CSS
 
-## Run Locally
+* Python
+* Django
+* SQLite
+* Bootstrap
+* HTML/CSS
 
-```bash
-python manage.py migrate
-python manage.py runserver
