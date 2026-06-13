@@ -62,42 +62,29 @@ def mall_map(request):
         {"floors": floors}
     )
 mall_graph = {
-    "Entrance": ["Escalator"],
+    "Entrance": {
+        "Escalator": "Go straight"
+    },
 
-    "Escalator": [
-        "Entrance",
-        "Floor 1",
-        "Floor 2",
-        "Floor 3"
-    ],
+    "Escalator": {
+        "Floor 1": "Take escalator to Floor 1",
+        "Floor 2": "Take escalator to Floor 2",
+        "Floor 3": "Take escalator to Floor 3"
+    },
 
-    "Floor 1": [
-        "Escalator",
-        "Zudio",
-        "Reliance Trends"
-    ],
+    "Floor 1": {
+        "Zudio": "Turn left"
+    },
 
-    "Floor 2": [
-        "Escalator",
-        "Starbucks",
-        "Dominos"
-    ],
+    "Floor 2": {
+        "Starbucks": "Turn left",
+        "Dominos": "Turn right"
+    },
 
-    "Floor 3": [
-        "Escalator",
-        "Reliance Digital"
-    ],
-
-    "Zudio": ["Floor 1"],
-    "Reliance Trends": ["Floor 1"],
-
-    "Starbucks": ["Floor 2"],
-    "Dominos": ["Floor 2"],
-
-    "Reliance Digital": ["Floor 3"]
+    "Floor 3": {
+        "Reliance Digital": "Go straight"
+    }
 }
-
-
 def find_path(graph, start, end):
     queue = deque([[start]])
     visited = set()
@@ -112,7 +99,7 @@ def find_path(graph, start, end):
         if node not in visited:
             visited.add(node)
 
-            for neighbour in graph.get(node, []):
+            for neighbour in graph.get(node, {}):
                 new_path = list(path)
                 new_path.append(neighbour)
                 queue.append(new_path)
@@ -123,6 +110,7 @@ def find_path(graph, start, end):
 def navigation(request):
 
     path_result = None
+    directions = []
 
     locations = [
         "Entrance",
@@ -144,11 +132,25 @@ def navigation(request):
             destination
         )
 
+        if path_result:
+
+            for i in range(len(path_result) - 1):
+
+                current = path_result[i]
+                nxt = path_result[i + 1]
+
+                if current in mall_graph and nxt in mall_graph[current]:
+
+                    directions.append(
+                        mall_graph[current][nxt] + " → " + nxt
+                    )
+
     return render(
         request,
         "navigation/navigation.html",
         {
             "locations": locations,
-            "path_result": path_result
+            "path_result": path_result,
+            "directions": directions
         }
     )

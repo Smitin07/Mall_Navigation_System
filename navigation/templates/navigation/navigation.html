@@ -78,7 +78,7 @@
 
         <div class="card mt-4">
 
-            <div class="card-header">
+            <div class="card-header bg-primary text-white">
                 Shortest Route
             </div>
 
@@ -91,6 +91,34 @@
                     </p>
 
                 {% endfor %}
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+    {% if directions %}
+
+        <div class="card mt-4">
+
+            <div class="card-header bg-success text-white">
+                Directions
+            </div>
+
+            <div class="card-body">
+
+                <ul class="list-group">
+
+                    {% for step in directions %}
+
+                        <li class="list-group-item">
+                            {{ step }}
+                        </li>
+
+                    {% endfor %}
+
+                </ul>
 
             </div>
 
